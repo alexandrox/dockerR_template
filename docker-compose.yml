@@ -1,13 +1,15 @@
 version: "3.2"
 
 services:
-  rstudio-server:     
+  rstudio:     
     build: 
       dockerfile: Dockerfile
       context: ./docker
     image: studiodocker
     env_file:
       - .env_dev
+    environment:
+      - PASSWORD=local_dev
 
     ports:
       - "8787:8787"
