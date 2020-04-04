@@ -126,19 +126,6 @@ RUN apt-get update \
   && apt-get autoclean -y \
   && rm -rf /var/lib/apt/lists/*
 
-
-#Python installation
-RUN apt-get update \
-	&& apt-get -y --no-install-recommends install python-dev \
-	&& pip install wheel \
-	## Install sklearn and pandas on python
-	&& pip install sklearn \
-	pandas \
-	pyyaml \
-	cwltool \
-	&& apt-get clean \
-	&& rm -rf /var/lib/apt/lists/*
-
 #add RStudio
 ARG RSTUDIO_VERSION
 #ENV RSTUDIO_VERSION=${RSTUDIO_VERSION:-1.1.463}
@@ -313,10 +300,10 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
 
 
 # add file to configurate the R environment
-ADD install_packages.R .
+ADD install.R .
 
 # install R-packages
-RUN Rscript install_packages.R
+RUN Rscript install.R
 
 # Add a /workdir volume
 VOLUME ["/workdir"]
